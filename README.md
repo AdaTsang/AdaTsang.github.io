@@ -41,6 +41,60 @@
             }
           }
       ```
+  2.  快速排序
+      ```javascript
+          function quickSort(arr) {
+            if(arr.length < 2) return arr;
+            var left = [];
+            var right = [];
+            var pivot = arr[0];
+            for(var i = 1; i < arr.length; i++) {
+              if(arr[i] > pivot) {
+                right.push(arr[i]);
+              } else {
+                left.push(arr[i]);
+              }
+            }
+            return [...quickSort(left), pivot, ...quickSort(right)];
+          }
+      ```
+  3.  堆排序
+      ```javascript
+          var len;
+          function _swap(arr, i, j) {
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+          }
+          function buildMaxHeap(arr) {
+            len = arr.length;
+            for(var i = Math.floor(len /2 ); i >= 0; i--) {
+              heapify(arr, i);
+            }
+          }
+          function heapify(arr, index) {
+            var left = 2 * index + 1,
+                right = 2 * index + 2,
+                largest = index;
+            if(left < len && arr[left] > arr[largest]) {
+              largest = left;
+            }
+            if(right < len && arr[right] > arr[largest]) {
+              largest = right;
+            }
+            if(largest !== index) {
+              _swap(arr, index, largest);
+              heapify(arr, largest);
+            }
+          }
+          function heapSort(arr) {
+            buildMaxHeap(arr);
+            for(var i = arr.length - 1; i > 0; i--) {
+              _swap(arr, 0, i);
+              len--;
+              heapify(arr, 0);
+            }
+            return arr;
+          }
+      ```
 
 * 算法面试题
     1.  两数之和 - 给定一个整数数组nums和一个目标值target，请你在该数组中找出和为目标值的那**两个**整数，并返回他们的数组**下标**。
